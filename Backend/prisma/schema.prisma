@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum SourceType {
+  TEXT
+  URL
+}
+
+model NoteTable {
+  id         Int           @id @default(autoincrement())
+  sourceType SourceType    @default(TEXT)
+  heading    String        @default("")
+  content    String        @default("")
+  timeStamp  DateTime      @default(now())
+  vectors    VectorTable[] // Cascade delete 
+}
+
+model VectorTable {
+  id          Int       @id @default(autoincrement())
+  text        String
+  vector      String // example -> [1,23,55,11,94,1,53,8] 
+  noteTableId Int
+  note        NoteTable @relation(fields: [noteTableId], references: [id], onDelete: Cascade)
+}
