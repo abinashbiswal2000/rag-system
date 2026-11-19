@@ -13,7 +13,7 @@
 
 **1.3 - Github Instruction**
 - Open a folder in VS Code.
-- Open a command prompt terminal and type 
+- Open a **command prompt** terminal (not powershell) and type 
 ```bash
 git clone https://github.com/abinashbiswal2000/rag-system
 ```
